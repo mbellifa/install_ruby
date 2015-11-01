@@ -22,21 +22,26 @@ cd
 if [ ! -d ".rbenv" ]; then
     git clone git://github.com/sstephenson/rbenv.git .rbenv
 fi
-if [ ! grep -Fq ".rbenv/bin:" ~/.bashrc ]; then
+
+if ! grep -Fq ".rbenv/bin:" ~/.bashrc
+then
     echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
 fi
+
 ri_RBENV_PATH="$HOME/.rbenv/bin"
-if [ ! grep -Fq "rbenv init -" ~/.bashrc ]; then
-    echo "$ri_RBENV_PATH/rbenv init -" >> ~/.bashrc
+
+if ! grep -Fq "rbenv init -" ~/.bashrc
+then
+    echo 'eval "$($ri_RBENV_PATH/rbenv init -)"' >> ~/.bashrc
 fi
 . ~/.bashrc
-$ri_RBENV_PATH/rbenv init -
 if [ ! -d "$HOME/.rbenv/plugins/ruby-build" ]; then
     git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 fi 
 
 ri_RUBY_BUILD="$HOME/.rbenv/plugins/ruby-build/bin"
-if [ ! grep -Fq ".rbenv/plugins/ruby-build/bin" ]; then
+if ! grep -Fq ".rbenv/plugins/ruby-build/bin" ~/.bashrc
+then
     echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
 fi
 . ~/.bashrc
