@@ -22,9 +22,13 @@ cd
 if [ ! -d ".rbenv" ]; then
     git clone git://github.com/sstephenson/rbenv.git .rbenv
 fi
-echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+if [ ! grep -Fq ".rbenv/bin:" ~/.bashrc ]; then
+    echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+fi
 ri_RBENV_PATH="$HOME/.rbenv/bin"
-echo "$ri_RBENV_PATH/rbenv init -" >> ~/.bashrc
+if [ ! grep -Fq "rbenv init -" ~/.bashrc ]; then
+    echo "$ri_RBENV_PATH/rbenv init -" >> ~/.bashrc
+fi
 . ~/.bashrc
 $ri_RBENV_PATH/rbenv init -
 if [ ! -d "$HOME/.rbenv/plugins/ruby-build" ]; then
@@ -32,13 +36,16 @@ if [ ! -d "$HOME/.rbenv/plugins/ruby-build" ]; then
 fi 
 
 ri_RUBY_BUILD="$HOME/.rbenv/plugins/ruby-build/bin"
-
-echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
+if [ ! grep -Fq ".rbenv/plugins/ruby-build/bin" ]; then
+    echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
+fi
 . ~/.bashrc
 "$ri_RBENV_PATH/rbenv" install 2.2.3
 "$ri_RBENV_PATH/rbenv" global 2.2.3
+ri_RBENV_SHIMS="$HOME/.rbenv/shims"
+"$ri_RBENV_SHIMS/ruby" -v
 
-ruby -v
 echo "gem: --no-ri --no-rdoc" > ~/.gemrc
-gem install bundler
-gem install rails
+"$ri_RBENV_SHIMS/gem" install bundler
+"$ri_RBENV_SHIMS/gem" install rails
+exec $SHELL
