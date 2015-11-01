@@ -32,7 +32,7 @@ ri_RBENV_PATH="$HOME/.rbenv/bin"
 
 if ! grep -Fq "rbenv init -" ~/.bashrc
 then
-    echo 'eval "$($ri_RBENV_PATH/rbenv init -)"' >> ~/.bashrc
+    echo 'eval "$($HOME/.rbenv/bin/rbenv init -)"' >> ~/.bashrc
 fi
 . ~/.bashrc
 if [ ! -d "$HOME/.rbenv/plugins/ruby-build" ]; then
