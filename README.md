@@ -6,3 +6,4 @@ Tested to work on the following:
 * Ubuntu Server 14.04 LTS
 * Debian 8.20
 * CentOS 7
+* Mageia 5

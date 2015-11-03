@@ -15,6 +15,11 @@ if [ -f /etc/redhat-release ]; then
     ri_OS=Redhat
     ri_OS_VER=$(cat /etc/redhat-release)
 fi
+# Mageia has both a redhat-release and a mandrake-release
+if [ -f /etc/mandrake-release ]; then
+    ri_OS=Mandrake
+    ri_OS_VER=$(cat /etc/mandrake-release)
+fi
 #echo $ri_OS
 
 if [ "$ri_OS" = "Debian" ]; then
@@ -23,6 +28,11 @@ if [ "$ri_OS" = "Debian" ]; then
 fi
 if [ "$ri_OS" = "Redhat" ]; then
     yum -y install git-core curl make automake gcc gcc-c++ kernel-devel zlib-devel openssl-libs readline-devel libyaml-devel sqlite-devel sqlite  libxml2-devel libxslt-devel libcurl-devel libffi-devel openssl-devel patch
+fi
+
+
+if [ "$ri_OS" = "Mandrake" ]; then
+    urpmi --auto git-core curl make automake gcc gcc-c++ kernel-devel zlib-devel readline-devel libyaml-devel libsqlite3-devel sqlite3-tools  libxml2-devel libxslt-devel libcurl-devel libffi-devel openssl-devel patch
 fi
 cd
 if [ ! -d ".rbenv" ]; then
