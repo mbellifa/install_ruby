@@ -10,14 +10,20 @@ if [ -f /etc/debian_version ]; then
     ri_OS=Debian
     ri_OS_VER=$(cat /etc/debian_version)
 fi
-echo $ri_OS
+
+if [ -f /etc/redhat-release ]; then
+    ri_OS=Redhat
+    ri_OS_VER=$(cat /etc/redhat-release)
+fi
+#echo $ri_OS
 
 if [ "$ri_OS" = "Debian" ]; then
     apt-get update
-    apt-get -y install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
+    apt-get -y install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev 
 fi
-
-
+if [ "$ri_OS" = "Redhat" ]; then
+    yum -y install git-core curl make automake gcc gcc-c++ kernel-devel zlib-devel openssl-libs readline-devel libyaml-devel sqlite-devel sqlite  libxml2-devel libxslt-devel libcurl-devel libffi-devel openssl-devel patch
+fi
 cd
 if [ ! -d ".rbenv" ]; then
     git clone git://github.com/sstephenson/rbenv.git .rbenv
